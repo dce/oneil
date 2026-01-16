@@ -1,4 +1,4 @@
-package internal
+package generate
 
 /*
 #cgo CFLAGS: -std=c99

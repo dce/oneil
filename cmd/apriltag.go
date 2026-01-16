@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"apriltag/internal"
+	"apriltag/internal/generate"
 	"apriltag/internal/scan"
 )
 
@@ -16,7 +16,7 @@ func main() {
 
 	switch os.Args[1] {
 	case "generate":
-		if err := internal.RunGenerate(os.Args[2:]); err != nil {
+		if err := generate.RunGenerate(os.Args[2:]); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
