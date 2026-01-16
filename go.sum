@@ -1,2 +1,4 @@
 github.com/AprilRobotics/apriltag v3.4.5+incompatible h1:9F1FgjgJ+qDigLs12dA7CQDF3pP3af4/YpxNDGjPvFw=
 github.com/AprilRobotics/apriltag v3.4.5+incompatible/go.mod h1:Ic7FgsrxCVhCynQp334DWPKEW+TBhmb8We7rnzJe6L4=
+github.com/adrium/goheif v0.0.0-20230113233934-ca402e77a786 h1:zvgtcRb2B5gynWjm+Fc9oJZPHXwmcgyH0xCcNm6Rmo4=
+github.com/adrium/goheif v0.0.0-20230113233934-ca402e77a786/go.mod h1:aKVJoQ0cc9K5Xb058XSnnAxXLliR97qbSqWBlm5ca1E=
