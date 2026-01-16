@@ -8,6 +8,7 @@ package generate
 import "C"
 
 import (
+	"bufio"
 	"errors"
 	"flag"
 	"fmt"
@@ -26,6 +27,7 @@ const (
 func RunGenerate(args []string) error {
 	fs := flag.NewFlagSet("generate", flag.ContinueOnError)
 	output := fs.String("o", defaultOutput, "output PNG filename")
+	stdout := fs.Bool("stdout", false, "print tag pixels to stdout instead of PNG")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -41,10 +43,10 @@ func RunGenerate(args []string) error {
 		return errors.New("output filename must not be empty")
 	}
 
-	return generateTag(id, *output)
+	return generateTag(id, *output, *stdout)
 }
 
-func generateTag(id int, outputPath string) error {
+func generateTag(id int, outputPath string, stdout bool) error {
 	tf := C.gen_tag36h11_create()
 	if tf == nil {
 		return errors.New("failed to create tag family")
@@ -69,6 +71,9 @@ func generateTag(id int, outputPath string) error {
 	}
 
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(im.buf)), height*stride)
+	if stdout {
+		return renderASCII(buf, width, height, stride, os.Stdout)
+	}
 
 	scaled := image.NewGray(image.Rect(0, 0, width*scaleFactor, height*scaleFactor))
 	for y := 0; y < height; y++ {
@@ -94,6 +99,31 @@ func generateTag(id int, outputPath string) error {
 
 	if err := png.Encode(file, scaled); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func renderASCII(buf []byte, width, height, stride int, output *os.File) error {
+	writer := bufio.NewWriter(output)
+	defer writer.Flush()
+
+	for y := 0; y < height; y++ {
+		row := buf[y*stride : y*stride+width]
+		for x := 0; x < width; x++ {
+			if row[x] > 0 {
+				if _, err := writer.WriteString("W"); err != nil {
+					return err
+				}
+			} else {
+				if _, err := writer.WriteString("B"); err != nil {
+					return err
+				}
+			}
+		}
+		if _, err := writer.WriteString("\n"); err != nil {
+			return err
+		}
 	}
 
 	return nil
