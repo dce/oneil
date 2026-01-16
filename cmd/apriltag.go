@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"apriltag/internal"
+	"apriltag/internal/scan"
 )
 
 func main() {
@@ -20,8 +21,10 @@ func main() {
 			os.Exit(1)
 		}
 	case "scan":
-		fmt.Fprintln(os.Stderr, "scan is not implemented yet")
-		os.Exit(1)
+		if err := scan.Run(os.Args[2:]); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
 	default:
 		usage()
 		os.Exit(1)

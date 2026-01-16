@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-image_u8_t *image_u8_create(unsigned int width, unsigned int height)
+image_u8_t *gen_image_u8_create(unsigned int width, unsigned int height)
 {
     image_u8_t *im = (image_u8_t *)calloc(1, sizeof(image_u8_t));
     if (!im) {
@@ -21,7 +21,7 @@ image_u8_t *image_u8_create(unsigned int width, unsigned int height)
     return im;
 }
 
-void image_u8_destroy(image_u8_t *im)
+void gen_image_u8_destroy(image_u8_t *im)
 {
     if (!im) {
         return;
@@ -30,7 +30,7 @@ void image_u8_destroy(image_u8_t *im)
     free(im);
 }
 
-image_u8_t *apriltag_to_image(apriltag_family_t *fam, uint32_t idx)
+image_u8_t *gen_apriltag_to_image(apriltag_family_t *fam, uint32_t idx)
 {
     if (!fam || idx >= fam->ncodes) {
         return NULL;
@@ -38,7 +38,7 @@ image_u8_t *apriltag_to_image(apriltag_family_t *fam, uint32_t idx)
 
     uint64_t code = fam->codes[idx];
 
-    image_u8_t *im = image_u8_create((unsigned int)fam->total_width,
+    image_u8_t *im = gen_image_u8_create((unsigned int)fam->total_width,
                                      (unsigned int)fam->total_width);
     if (!im) {
         return NULL;

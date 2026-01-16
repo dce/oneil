@@ -25,20 +25,10 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#pragma once
 
-#include "apriltag.h"
+void svd22(const double A[4], double U[4], double S[2], double V[4]);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+// for the matrix [a b; b d]
+void svd_sym_singular_values(double A00, double A01, double A11,
+                             double *Lmin, double *Lmax);

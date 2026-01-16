@@ -24,21 +24,18 @@ The views and conclusions contained in the software and documentation are those
 of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
+#pragma once
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#if !defined(NDEBUG) || defined(_DEBUG)
 
-#include "apriltag.h"
+#include <string.h>
+#include <stdio.h>
+#define DEBUG 1
 
-#ifdef __cplusplus
-extern "C" {
+#else
+#define DEBUG 0
 #endif
 
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+#define debug_print(fmt, ...) \
+        do { if (DEBUG) fprintf(stderr, "%s:%d:%s(): " fmt, strrchr("/"__FILE__,'/')+1, \
+                                __LINE__, __func__, ##__VA_ARGS__); fflush(stderr);} while (0)

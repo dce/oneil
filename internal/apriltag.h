@@ -33,9 +33,9 @@ struct apriltag_family {
     void *impl;
 };
 
-image_u8_t *image_u8_create(unsigned int width, unsigned int height);
-void image_u8_destroy(image_u8_t *im);
-image_u8_t *apriltag_to_image(apriltag_family_t *fam, uint32_t idx);
+image_u8_t *gen_image_u8_create(unsigned int width, unsigned int height);
+void gen_image_u8_destroy(image_u8_t *im);
+image_u8_t *gen_apriltag_to_image(apriltag_family_t *fam, uint32_t idx);
 
 #ifdef __cplusplus
 }

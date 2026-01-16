@@ -45,21 +45,21 @@ func RunGenerate(args []string) error {
 }
 
 func generateTag(id int, outputPath string) error {
-	tf := C.tag36h11_create()
+	tf := C.gen_tag36h11_create()
 	if tf == nil {
 		return errors.New("failed to create tag family")
 	}
-	defer C.tag36h11_destroy(tf)
+	defer C.gen_tag36h11_destroy(tf)
 
 	if id >= int(tf.ncodes) {
 		return fmt.Errorf("tag id %d out of range (max %d)", id, int(tf.ncodes)-1)
 	}
 
-	im := C.apriltag_to_image(tf, C.uint32_t(id))
+	im := C.gen_apriltag_to_image(tf, C.uint32_t(id))
 	if im == nil {
 		return errors.New("failed to render tag image")
 	}
-	defer C.image_u8_destroy(im)
+	defer C.gen_image_u8_destroy(im)
 
 	width := int(im.width)
 	height := int(im.height)

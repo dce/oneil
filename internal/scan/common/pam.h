@@ -25,20 +25,30 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#pragma once
 
-#include "apriltag.h"
+#include <stdint.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+enum { PAM_GRAYSCALE_ALPHA = 5000, PAM_RGB_ALPHA, PAM_RGB, PAM_GRAYSCALE };
 
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
+typedef struct pam pam_t;
+struct pam
+{
+    int type; // one of PAM_*
 
-#ifdef __cplusplus
-}
-#endif
+    int width, height; // note, stride always width.
+    int depth; // bytes per pixel
+    int maxval; // maximum value per channel, e.g. 255 for 8bpp
 
-#endif
+    size_t datalen; // in bytes
+    uint8_t *data;
+};
+
+pam_t *pam_create_from_file(const char *inpath);
+int pam_write_file(pam_t *pam, const char *outpath);
+void pam_destroy(pam_t *pam);
+
+pam_t *pam_copy(pam_t *pam);
+
+// NB doesn't handle many conversions yet.
+pam_t *pam_convert(pam_t *in, int type);

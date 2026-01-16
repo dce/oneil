@@ -25,20 +25,25 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#pragma once
 
-#include "apriltag.h"
+#include "zarray.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+typedef struct workerpool workerpool_t;
 
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
+// as a special case, if nthreads==1, no additional threads are
+// created, and workerpool_run will run synchronously.
+workerpool_t *workerpool_create(int nthreads);
+void workerpool_destroy(workerpool_t *wp);
 
-#ifdef __cplusplus
-}
-#endif
+void workerpool_add_task(workerpool_t *wp, void (*f)(void *p), void *p);
 
-#endif
+// runs all added tasks, waits for them to complete.
+void workerpool_run(workerpool_t *wp);
+
+// same as workerpool_run, except always single threaded. (mostly for debugging).
+void workerpool_run_single(workerpool_t *wp);
+
+int workerpool_get_nthreads(workerpool_t *wp);
+
+int workerpool_get_nprocs();

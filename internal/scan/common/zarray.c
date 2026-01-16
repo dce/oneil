@@ -25,20 +25,31 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#include <string.h>
+#include <assert.h>
 
-#include "apriltag.h"
+#include "zarray.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+int zstrcmp(const void * a_pp, const void * b_pp)
+{
+    assert(a_pp != NULL);
+    assert(b_pp != NULL);
 
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
+    char * a = *(void**)a_pp;
+    char * b = *(void**)b_pp;
 
-#ifdef __cplusplus
+    return strcmp(a,b);
 }
-#endif
 
-#endif
+void zarray_vmap(zarray_t *za, void (*f)(void*))
+{
+    assert(za != NULL);
+    assert(f != NULL);
+    assert(za->el_sz == sizeof(void*));
+
+    for (int idx = 0; idx < za->size; idx++) {
+        void *pp = &za->data[idx*za->el_sz];
+        void *p = *(void**) pp;
+        f(p);
+    }
+}

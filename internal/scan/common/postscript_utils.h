@@ -25,20 +25,29 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the Regents of The University of Michigan.
 */
 
-#ifndef _TAG36H11
-#define _TAG36H11
+#pragma once
 
-#include "apriltag.h"
+// write commands in postscript language to render an image in the current
+// graphics environment. The image will be rendered in one pixel per unit
+// with Y up coordinate axis (e.g. upside down).
+static void postscript_image(FILE *f, image_u8_t *im)
+{
+//    fprintf(f, "/readstring {\n  currentfile exch readhexstring pop\n} bind def\n");
+    fprintf(f, "/picstr %d string def\n", im->width);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    fprintf(f, "%d %d 8 [1 0 0 1 0 0]\n",
+            im->width, im->height);
 
-apriltag_family_t *gen_tag36h11_create();
-void gen_tag36h11_destroy(apriltag_family_t *tf);
+    fprintf(f, "{currentfile picstr readhexstring pop}\nimage\n");
 
-#ifdef __cplusplus
+    for (int y = 0; y < im->height; y++) {
+        for (int x = 0; x < im->width; x++) {
+            uint8_t v = im->buf[y*im->stride + x];
+            fprintf(f, "%02x", v);
+            if ((x % 32)==31)
+                fprintf(f, "\n");
+        }
+    }
+
+    fprintf(f, "\n");
 }
-#endif
-
-#endif
