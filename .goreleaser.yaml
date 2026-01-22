@@ -9,8 +9,6 @@ before:
 builds:
   - id: oneil
     main: ./cmd
-    env:
-      - CGO_ENABLED=0
     goos: [darwin]
     goarch: [arm64]
     ldflags:
