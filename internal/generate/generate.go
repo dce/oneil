@@ -1,7 +1,7 @@
 package generate
 
 /*
-#cgo CFLAGS: -std=c99
+#cgo CFLAGS: -std=c99 -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE
 #include "apriltag.h"
 #include "tag36h11.h"
 */

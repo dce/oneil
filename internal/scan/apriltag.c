@@ -36,6 +36,7 @@ either expressed or implied, of the Regents of The University of Michigan.
 #include <math.h>
 #include <assert.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
