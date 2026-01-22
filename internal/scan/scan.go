@@ -30,7 +30,7 @@ func Run(args []string) error {
 		return err
 	}
 	if fs.NArg() != 1 {
-		return fmt.Errorf("usage: apriltag scan <path>")
+		return fmt.Errorf("usage: oneil scan <path>")
 	}
 
 	imgPath := fs.Arg(0)

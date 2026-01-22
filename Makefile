@@ -3,7 +3,7 @@
 all: build
 
 build:
-	go build -o bin/apriltag cmd/apriltag.go
+	go build -o bin/oneil cmd/oneil.go
 
 clean:
-	rm -f bin/apriltag
+	rm -f bin/oneil

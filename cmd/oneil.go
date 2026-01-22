@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"apriltag/internal/generate"
-	"apriltag/internal/scan"
+	"oneil/internal/generate"
+	"oneil/internal/scan"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: apriltag <command> [args]")
+	fmt.Fprintln(os.Stderr, "usage: oneil <command> [args]")
 	fmt.Fprintln(os.Stderr, "")
 	fmt.Fprintln(os.Stderr, "commands:")
 	fmt.Fprintln(os.Stderr, "  generate   generate an AprilTag PNG")
