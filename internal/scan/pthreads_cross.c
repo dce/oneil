@@ -249,8 +249,24 @@ unsigned int pcthread_get_num_procs()
 #else
 
 #include <unistd.h>
+#ifdef __APPLE__
+#include <stddef.h>
+int sysctlbyname(const char *name, void *oldp, size_t *oldlenp, void *newp, size_t newlen);
+#endif
 unsigned int pcthread_get_num_procs()
 {
+#ifdef __APPLE__
+    int ncpu = 0;
+    size_t len = sizeof(ncpu);
+    if (sysctlbyname("hw.ncpu", &ncpu, &len, NULL, 0) == 0 && ncpu > 0)
+        return (unsigned int)ncpu;
+    return 1;
+#else
+#ifdef _SC_NPROCESSORS_ONLN
     return (unsigned int)sysconf(_SC_NPROCESSORS_ONLN);
+#else
+    return 1;
+#endif
+#endif
 }
 #endif

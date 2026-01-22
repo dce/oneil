@@ -37,6 +37,10 @@ either expressed or implied, of the Regents of The University of Michigan.
 #include <windows.h>
 #else
 #include <unistd.h>
+#ifdef __APPLE__
+#include <stddef.h>
+int sysctlbyname(const char *name, void *oldp, size_t *oldlenp, void *newp, size_t newlen);
+#endif
 #endif
 
 #include "workerpool.h"
@@ -219,7 +223,17 @@ int workerpool_get_nprocs()
     SYSTEM_INFO sysinfo;
     GetSystemInfo(&sysinfo);
     return sysinfo.dwNumberOfProcessors;
+#elif defined(__APPLE__)
+    int ncpu = 0;
+    size_t len = sizeof(ncpu);
+    if (sysctlbyname("hw.ncpu", &ncpu, &len, NULL, 0) == 0 && ncpu > 0)
+        return ncpu;
+    return 1;
 #else
+#ifdef _SC_NPROCESSORS_ONLN
     return sysconf (_SC_NPROCESSORS_ONLN);
+#else
+    return 1;
+#endif
 #endif
 }
