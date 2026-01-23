@@ -8,6 +8,23 @@ Simple CLI for generating and scanning AprilTags.
 make
 ```
 
+## Download and Run (macOS)
+
+Download the latest release tarball from GitHub, extract it, then run:
+
+```
+chmod +x oneil
+./oneil generate --help
+```
+
+If macOS blocks the binary with a "could not verify" warning, remove the quarantine attribute and retry:
+
+```
+xattr -d com.apple.quarantine /path/to/oneil
+```
+
+You can also allow it via System Settings -> Privacy & Security -> Open Anyway.
+
 ## Generate
 
 Generate a tag PNG (tag36h11 family):
