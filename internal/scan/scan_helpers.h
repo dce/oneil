@@ -1,7 +1,7 @@
 #pragma once
 
 #include "apriltag.h"
-#include "common/zarray.h"
+#include "zarray.h"
 
 #ifdef __cplusplus
 extern "C" {

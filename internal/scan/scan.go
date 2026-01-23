@@ -1,7 +1,7 @@
 package scan
 
 /*
-#cgo CFLAGS: -std=c99 -I${SRCDIR}/common -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L
+#cgo CFLAGS: -std=c99 -I${SRCDIR} -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L
 #cgo LDFLAGS: -lm -lpthread
 #include "apriltag.h"
 #include "tag36h11.h"

@@ -9,9 +9,9 @@
  * 
  */
 
-#include "common/image_u8_parallel.h"
-#include "common/workerpool.h"
-#include "common/math_util.h"
+#include "image_u8_parallel.h"
+#include "workerpool.h"
+#include "math_util.h"
 
 static void convolve(const uint8_t *x, uint8_t *y, int sz, const uint8_t *k, int ksz)
 {

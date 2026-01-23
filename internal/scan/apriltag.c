@@ -41,20 +41,20 @@ either expressed or implied, of the Regents of The University of Michigan.
 #include <stdio.h>
 #include <errno.h>
 
-#include "common/image_u8.h"
-#include "common/image_u8_parallel.h"
-#include "common/image_u8x3.h"
-#include "common/zarray.h"
-#include "common/matd.h"
-#include "common/homography.h"
-#include "common/timeprofile.h"
-#include "common/math_util.h"
-#include "common/g2d.h"
-#include "common/debug_print.h"
+#include "image_u8.h"
+#include "image_u8_parallel.h"
+#include "image_u8x3.h"
+#include "zarray.h"
+#include "matd.h"
+#include "homography.h"
+#include "timeprofile.h"
+#include "math_util.h"
+#include "g2d.h"
+#include "debug_print.h"
 
 #include "apriltag_math.h"
 
-#include "common/postscript_utils.h"
+#include "postscript_utils.h"
 
 #ifdef _WIN32
 static inline void srandom(unsigned int seed)

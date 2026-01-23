@@ -1,9 +1,9 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "common/debug_print.h"
+#include "debug_print.h"
 #include "apriltag_pose.h"
-#include "common/homography.h"
+#include "homography.h"
 
 
 /**
